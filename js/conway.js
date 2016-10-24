@@ -82,6 +82,18 @@ function LifeBoard(size_x, size_y) {
 		return board_string;
 	}
 
+	this.countLivingCells = function() {
+		living_counter = 0;
+		for (i=0; i<this.max_y; i++) {
+			for (j=0; j<this.max_x; j++) {
+				if (this.board[j][i] == 1) {
+					living_counter++;
+				}
+			}
+		}
+		return living_counter;
+	}
+
 	this.life = function() {
 
 		tempBoard = new Array(this.max_y);
