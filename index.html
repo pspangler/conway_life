@@ -13,8 +13,8 @@
 	var timer;
     var iterationCount = 0;
 
-	var CANVAS_X_SIZE = 400;
-    var CANVAS_Y_SIZE = 400;
+	var CANVAS_X_SIZE = 500;
+    var CANVAS_Y_SIZE = 500;
 
     function doRun() {
 	     /* This timeout variable controls how frequently we poll the server */
@@ -38,7 +38,7 @@
     }
 
 	$(document).ready( function() {
-        LifeBoard = new LifeBoard(40, 40);
+        LifeBoard = new LifeBoard(50, 50);
 
         // Just to set up something to start with...
         LifeBoard.setCellState(1,1, 1);
@@ -109,25 +109,25 @@
 
     </div>
 
+    <div id="status_div">
+        Simulation is: <span id="run_status">Stopped</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Iteration Counter: <span id="iteration_counter">0</span>
+        <br /><br />
+    </div>
+
     <div id="lifeboard">
 
     	<div id="controls">
-    		<h2>Controls</h2>
     		<input type="submit" id="clear" name="clear" value="Clear" /> &nbsp;&nbsp;
     		<input type="submit" id="step" name="step" value="Step" /> &nbsp;&nbsp;
     		<input type="submit" id="run" name="run" value="Run" /> &nbsp;&nbsp;
-            <input type="submit" id="showgrid" name="showgrid" value="Show Grid" /> &nbsp;&nbsp;
+            <!-- <input type="submit" id="showgrid" name="showgrid" value="Show Grid" /> &nbsp;&nbsp; -->
     		<input type="submit" id="stop" name="stop" value="Stop" /> <br />
     		<br />
     	</div>
 
-    	<canvas id="lifeboard_canvas" width="400" height="400"></canvas>
-
-        <div id="status_div">
-            Simulation is: <span id="run_status">Stopped</span>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            Iteration Counter: <span id="iteration_counter">0</span>
-        </div>
+    	<canvas id="lifeboard_canvas" width="500" height="500"></canvas>
 
 	   <div id="debug_msg"></div>
 
