@@ -100,24 +100,24 @@ function LifeBoard(size_x, size_y) {
 				numNeighbors = this.getLivingNeighborsCount(j, i);
 
 				// set up the new state in our temp board array.
-				if (this.board[j][i] == 1) {
+				if (this.board[i][j] == 1) {
 					if ( (numNeighbors >= 2) && (numNeighbors <= 3) ) {
-						console.log("Cell remains alive.  neighbors at " + j + ", " + i + " = " + numNeighbors);
-						tempBoard[j][i] = 1;
+						//console.log("Cell remains alive.  neighbors at " + j + ", " + i + " = " + numNeighbors);
+						tempBoard[i][j] = 1;
 					} else {
 						// Death from isolation or overcrowding.
-						tempBoard[j][i] = 0;
-						console.log("Cell dies.  num neighbors = " + numNeighbors + ".  Death from isolation or overcrowding! at " + j + "," + i);
+						tempBoard[i][j] = 0;
+						//console.log("Cell dies.  num neighbors = " + numNeighbors + ".  Death from isolation or overcrowding! at " + j + "," + i);
 					}
 
 				} else {
 					if (numNeighbors == 3) {
 						// Birth!
-						console.log("Cell at " + j + "," + i + " is born!  neighbors = " + numNeighbors);
-						tempBoard[j][i] = 1;
+						//console.log("Cell at " + j + "," + i + " is born!  neighbors = " + numNeighbors);
+						tempBoard[i][j] = 1;
 					} else {
-						console.log("Cell at " + j + "," + i + " remains dead.  neighbors = " + numNeighbors);
-						tempBoard[j][i] = 0;
+						//console.log("Cell at " + j + "," + i + " remains dead.  neighbors = " + numNeighbors);
+						tempBoard[i][j] = 0;
 					}
 				}
 			}
@@ -126,11 +126,10 @@ function LifeBoard(size_x, size_y) {
 		// Now update the actual board.
 		for (i=0; i<this.max_y; i++) 
 			for (j=0; j<this.max_x; j++) 
-				this.board[j][i] = tempBoard[j][i];
+				this.board[i][j] = tempBoard[i][j];
 	}
 
 	this.renderBoard = function() { 
-
 		var context = this.canvas_board.getContext("2d");
 		context.fillStyle = "#000000";
 		context.fillRect(0, 0, this.canvas_x, this.canvas_y);
@@ -172,6 +171,10 @@ function LifeBoard(size_x, size_y) {
 				}
 			}
 		}
+		// Decrement the living neighbor count by 1 since
+		// we counted the cell at x,y
+		if (this.board[y][x] == 1)
+			livingNeighborCount = livingNeighborCount-1;
 		return livingNeighborCount;
 	}
 
@@ -181,12 +184,12 @@ function LifeBoard(size_x, size_y) {
 		sy = y*10;
 
 		if (LifeBoard.board[x][y] == 1) {
-			console.log("Toggling cell to dead at " + x + ", " + y);
+			//console.log("Toggling cell to dead at " + x + ", " + y);
 			LifeBoard.board[x][y] = 0;
 			context.fillStyle = "#550000";
 			context.fillRect(sx, sy, 10, 10);			
 		} else {
-			console.log("Toggling cell to alive at " + x + ", " + y);
+			//console.log("Toggling cell to alive at " + x + ", " + y);
 			LifeBoard.board[x][y] = 1;
 			context.fillStyle = "#ffffff";
 			context.fillRect(sx, sy, 10, 10);
