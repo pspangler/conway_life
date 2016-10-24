@@ -79,15 +79,20 @@
 </head>
 
 <body>
-	<h1>Conway's Game of Life</h1>
+	<h1>Conway's<br /> Game of Life</h1>
 
+    <div style="float: left; width: 40%;">
 	<h2>Rules</h2>
 	<p>The rules of life are:</p>
 	<ol>
-		<li>If a cell is alive at time <em>t</em>, it will remain alive in the next cycle <em>t</em>+1 if it is not overcrowded or undernourished. This means having between 2 and 3 neighbors.</li>
+		<li>If a cell is alive at time <em>t</em>, it will remain alive in the next cycle <em>t</em>+1 if it is not overcrowded or undernourished. This means having between 2 and 3 neighbors.></li>
 
 		<li>If a cell is dead at time <em>t</em> it will remain dead unless there are three adjacent cells to bring it to life</li>
 	</ol>
+
+    </div>
+
+    <div style="float: right; width: 60%;">
 
 	<div id="controls">
 		<h2>Controls</h2>
@@ -104,5 +109,7 @@
 	<div id="debug_msg">
 
 	</div>
+
+</div>
 
 </html>
