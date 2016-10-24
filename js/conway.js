@@ -157,7 +157,7 @@ function LifeBoard(size_x, size_y) {
 					context.fillStyle = "#ffffff";
 					context.fillRect(sx, sy, 10, 10);
 				} else {
-					context.fillStyle = "#550000";
+					context.fillStyle = "#0F17FA";
 					context.fillRect(sx, sy, 10, 10);
 				}
 			}
@@ -198,7 +198,7 @@ function LifeBoard(size_x, size_y) {
 		if (LifeBoard.board[x][y] == 1) {
 			//console.log("Toggling cell to dead at " + x + ", " + y);
 			LifeBoard.board[x][y] = 0;
-			context.fillStyle = "#550000";
+			context.fillStyle = "#0F17FA";
 			context.fillRect(sx, sy, 10, 10);			
 		} else {
 			//console.log("Toggling cell to alive at " + x + ", " + y);

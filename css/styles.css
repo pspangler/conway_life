@@ -35,3 +35,8 @@
 	width: 60%;
  }
 
+ #status_div {
+ 	font-family: courier;
+ 	font-size: 0.9em;
+ }
+

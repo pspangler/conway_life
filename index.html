@@ -57,7 +57,6 @@
         LifeBoard.renderBoard();
 
          $( "#step" ).click(function() {
-                console.log("Perform Life iteration.." );
                 runState = 0;
                 iterationCount++;
                 $("#iteration_counter").html(iterationCount);
@@ -66,7 +65,8 @@
         });
 
         $( "#clear" ).click(function() {
-                console.log("Clearing Board" );
+                iterationCount=0;
+                $("#iteration_counter").html(iterationCount);
                 LifeBoard.resetBoard();
                 LifeBoard.renderBoard();
         });
