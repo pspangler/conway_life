@@ -4,6 +4,34 @@
  **/
 
 
- body { 
+ html, body { 
  	font-family: helvetica, arial;
+ 	width: 100%;
+ 	margin: 0px;
+ 	padding: 0;
+ 	height: 100%;
  }
+
+ #header {
+ 	width: 100%;
+ 	background-color: #00ccff;
+ 	margin-top: -10px;
+ }
+
+ #conway_text { 
+ 	float: left; 
+ 	width: 39%;
+ 	font-size: 0.9em;
+ 	padding-left: -15px;
+ 	margin-left: 10px;
+ }
+
+ #conway_text li { 
+ 	margin: 15px 0;
+ }
+
+ #lifeboard { 
+	float: right; 
+	width: 60%;
+ }
+
