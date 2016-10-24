@@ -11,6 +11,7 @@
 	var LifeBoard;
 	var runState = 0;
 	var timer;
+    var iterationCount = 0;
 
 	var CANVAS_X_SIZE = 400;
     var CANVAS_Y_SIZE = 400;
@@ -18,10 +19,22 @@
     function doRun() {
 	     /* This timeout variable controls how frequently we poll the server */
 	     LifeBoard.life();
+         iterationCount++;
+         $("#iteration_counter").html(iterationCount);
          LifeBoard.renderBoard();
+
+         if (LifeBoard.countLivingCells() == 0) {
+            runState = 0;
+         }
+
          if (runState == 1) {
          	t=setTimeout("doRun()", 800);
+            $("#run_status").html("Running");
+         } else {
+            $("#run_status").html("Stopped");
          }
+
+         
     }
 
 	$(document).ready( function() {
@@ -46,6 +59,8 @@
          $( "#step" ).click(function() {
                 console.log("Perform Life iteration.." );
                 runState = 0;
+                iterationCount++;
+                $("#iteration_counter").html(iterationCount);
                 LifeBoard.life();
                 LifeBoard.renderBoard();
         });
@@ -79,36 +94,42 @@
 </head>
 
 <body>
-	<h1>Conway's<br /> Game of Life</h1>
+	<div id="header">
+        <h1>Conway's<br /> Game of Life</h1>
+    </div>
 
-    <div style="float: left; width: 40%;">
+    <div id="conway_text">
 	<h2>Rules</h2>
 	<p>The rules of life are:</p>
 	<ol>
-		<li>If a cell is alive at time <em>t</em>, it will remain alive in the next cycle <em>t</em>+1 if it is not overcrowded or undernourished. This means having between 2 and 3 neighbors.></li>
+		<li>If a cell is alive at time <em>t</em>, it will remain alive in the next cycle <em>t</em>+1 if it is not overcrowded or undernourished. This means having between 2 and 3 neighbors.</li>
 
 		<li>If a cell is dead at time <em>t</em> it will remain dead unless there are three adjacent cells to bring it to life</li>
 	</ol>
 
     </div>
 
-    <div style="float: right; width: 60%;">
+    <div id="lifeboard">
 
-	<div id="controls">
-		<h2>Controls</h2>
-		<input type="submit" id="clear" name="clear" value="Clear" /> &nbsp;&nbsp;
-		<input type="submit" id="step" name="step" value="Step" /> &nbsp;&nbsp;
-		<input type="submit" id="run" name="run" value="Run" /> &nbsp;&nbsp;
-        <input type="submit" id="showgrid" name="showgrid" value="Show Grid" /> &nbsp;&nbsp;
-		<input type="submit" id="stop" name="stop" value="Stop" /> <br />
-		<br />
-	</div>
+    	<div id="controls">
+    		<h2>Controls</h2>
+    		<input type="submit" id="clear" name="clear" value="Clear" /> &nbsp;&nbsp;
+    		<input type="submit" id="step" name="step" value="Step" /> &nbsp;&nbsp;
+    		<input type="submit" id="run" name="run" value="Run" /> &nbsp;&nbsp;
+            <input type="submit" id="showgrid" name="showgrid" value="Show Grid" /> &nbsp;&nbsp;
+    		<input type="submit" id="stop" name="stop" value="Stop" /> <br />
+    		<br />
+    	</div>
 
-	<canvas id="lifeboard_canvas" width="400" height="400"></canvas>
+    	<canvas id="lifeboard_canvas" width="400" height="400"></canvas>
 
-	<div id="debug_msg">
+        <div id="status_div">
+            Simulation is: <span id="run_status">Stopped</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            Iteration Counter: <span id="iteration_counter">0</span>
+        </div>
 
-	</div>
+	   <div id="debug_msg"></div>
 
 </div>
 
