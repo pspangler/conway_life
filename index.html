@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Conway's Game of Life</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/styles.css" />
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/conway.js"></script>
+
+	<script type="text/javascript">
+	var LifeBoard;
+	var runState = 0;
+	var timer;
+
+	var CANVAS_X_SIZE = 400;
+    var CANVAS_Y_SIZE = 400;
+
+    function doRun() {
+	     /* This timeout variable controls how frequently we poll the server */
+	     LifeBoard.life();
+         LifeBoard.renderBoard();
+         if (runState == 1) {
+         	t=setTimeout("doRun()", 800);
+         }
+    }
+
+	$(document).ready( function() {
+        LifeBoard = new LifeBoard(40, 40);
+
+        // Just to set up something to start with...
+        LifeBoard.setCellState(1,1, 1);
+        LifeBoard.setCellState(1,2, 1);
+		LifeBoard.setCellState(2,2, 1);
+        LifeBoard.setCellState(3,2, 1);
+        LifeBoard.setCellState(3,3, 1);
+
+		LifeBoard.setCellState(6,2, 1);
+        LifeBoard.setCellState(6,3, 1);
+        LifeBoard.setCellState(6,4, 1);
+
+        LifeBoard.setCanvasElement( CANVAS_X_SIZE, CANVAS_Y_SIZE, document.getElementById("lifeboard_canvas") );
+
+        // Do an initial render of the board.
+        LifeBoard.renderBoard();
+
+         $( "#step" ).click(function() {
+                console.log("Perform Life iteration.." );
+                runState = 0;
+                LifeBoard.life();
+                LifeBoard.renderBoard();
+        });
+
+        $( "#clear" ).click(function() {
+                console.log("Clearing Board" );
+                LifeBoard.resetBoard();
+                LifeBoard.renderBoard();
+        });
+
+        $( "#run" ).click(function() {
+                console.log("Run" );
+                runState = 1;
+
+                doRun();
+        });
+
+        $( "#stop" ).click(function() {
+                console.log("Stopping..." );
+                runState = 0;
+        });
+
+        $( "#showgrid").click(function() {
+            console.log("Displaying grid...");
+             $("#debug_msg").html( "<pre>" + LifeBoard.toString() + "</pre>\n");
+        })
+
+	});
+
+	</script>
+</head>
+
+<body>
+	<h1>Conway's Game of Life</h1>
+
+	<h2>Rules</h2>
+	<p>The rules of life are:</p>
+	<ol>
+		<li>If a cell is alive at time <em>t</em>, it will remain alive in the next cycle <em>t</em>+1 if it is not overcrowded or undernourished. This means having between 2 and 3 neighbors.</li>
+
+		<li>If a cell is dead at time <em>t</em> it will remain dead unless there are three adjacent cells to bring it to life</li>
+	</ol>
+
+	<div id="controls">
+		<h2>Controls</h2>
+		<input type="submit" id="clear" name="clear" value="Clear" /> &nbsp;&nbsp;
+		<input type="submit" id="step" name="step" value="Step" /> &nbsp;&nbsp;
+		<input type="submit" id="run" name="run" value="Run" /> &nbsp;&nbsp;
+        <input type="submit" id="showgrid" name="showgrid" value="Show Grid" /> &nbsp;&nbsp;
+		<input type="submit" id="stop" name="stop" value="Stop" /> <br />
+		<br />
+	</div>
+
+	<canvas id="lifeboard_canvas" width="400" height="400"></canvas>
+
+	<div id="debug_msg">
+
+	</div>
+
+</html>
