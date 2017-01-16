@@ -12,29 +12,36 @@
 	var runState = 0;
 	var timer;
     var iterationCount = 0;
+    var refreshDelay = 800;
 
 	var CANVAS_X_SIZE = 500;
     var CANVAS_Y_SIZE = 500;
 
     function doRun() {
-	     /* This timeout variable controls how frequently we poll the server */
+	     /* This timeout variable controls how frequently update the board. */
 	     LifeBoard.life();
          iterationCount++;
          $("#iteration_counter").html(iterationCount);
          LifeBoard.renderBoard();
+
+         $("#simrate_value").html(refreshDelay);
 
          if (LifeBoard.countLivingCells() == 0) {
             runState = 0;
          }
 
          if (runState == 1) {
-         	t=setTimeout("doRun()", 800);
+         	t=setTimeout("doRun()", refreshDelay);
             $("#run_status").html("Running");
          } else {
             $("#run_status").html("Stopped");
          }
 
          
+    }
+
+    function updateRate(val) {
+        refreshDelay = val;
     }
 
 	$(document).ready( function() {
@@ -92,14 +99,17 @@
 
 	</script>
 </head>
-
 <body>
 	<div id="header">
         <h1>Conway's<br /> Game of Life</h1>
     </div>
 
     <div id="conway_text">
-	<h2>Rules</h2>
+
+    <h2>The Rules of Life</h2>
+    <p>John Conway came up with the rules for Life in 1970. Since then it has proven to have a great attraction for many. The Rules are simple to understand and yet from such simplicity 
+    interesting patterns emerge.</p>
+	
 	<p>The rules of life are:</p>
 	<ol>
 		<li>If a cell is alive at time <em>t</em>, it will remain alive in the next cycle <em>t</em>+1 if it is not overcrowded or undernourished. This means having between 2 and 3 neighbors.</li>
@@ -124,6 +134,10 @@
     		<input type="submit" id="run" name="run" value="Run" /> &nbsp;&nbsp;
             <!-- <input type="submit" id="showgrid" name="showgrid" value="Show Grid" /> &nbsp;&nbsp; -->
     		<input type="submit" id="stop" name="stop" value="Stop" /> <br />
+
+            <span id="simrate_label">Simulation Rate</span><input type="range" id="simulation_speed" min="100" step="1" max="1000" value="800" onchange="updateRate(this.value)" />
+            <span id="simrate_value"></span>
+            <br />
     		<br />
     	</div>
 
