@@ -41,7 +41,6 @@ function LifeBoard(size_x, size_y) {
 			x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
 			y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
 		}
-		// console.log("Got the mouse click!  raw x=" + x + ", y=" + y);
 
 		/* Compensate for where the canvas actually is on the page. */
 		// For some reason I can't use the this variable here.
@@ -51,14 +50,10 @@ function LifeBoard(size_x, size_y) {
 
 		x = Math.round(x / 10);
 		y = Math.round(y / 10);
-
-		//console.log("Canvas Offset Left: " + life_canvas.offsetLeft);
-		//console.log("Adjust coordinate values for actual canvas position.  x=" + x + ", y=" + y);
 		
 		/* Now convert this to regular grid coordinates. */
 		/*  if x is 78, then we want (for now) to call this '7' */
 		
-		//console.log("Converted coordinates:  x = " + x + ", y = " + y);
 		LifeBoard.toggleCell(x, y);
 	}
 
@@ -68,7 +63,6 @@ function LifeBoard(size_x, size_y) {
 		this.canvas_y     = y_size;
 
 		this.canvas_board.addEventListener("click", this.grab_mouse_click_position, false);
-
 	}
 
 	this.toString = function() {
@@ -114,21 +108,17 @@ function LifeBoard(size_x, size_y) {
 				// set up the new state in our temp board array.
 				if (this.board[i][j] == 1) {
 					if ( (numNeighbors >= 2) && (numNeighbors <= 3) ) {
-						//console.log("Cell remains alive.  neighbors at " + j + ", " + i + " = " + numNeighbors);
 						tempBoard[i][j] = 1;
 					} else {
 						// Death from isolation or overcrowding.
 						tempBoard[i][j] = 0;
-						//console.log("Cell dies.  num neighbors = " + numNeighbors + ".  Death from isolation or overcrowding! at " + j + "," + i);
 					}
 
 				} else {
 					if (numNeighbors == 3) {
 						// Birth!
-						//console.log("Cell at " + j + "," + i + " is born!  neighbors = " + numNeighbors);
 						tempBoard[i][j] = 1;
 					} else {
-						//console.log("Cell at " + j + "," + i + " remains dead.  neighbors = " + numNeighbors);
 						tempBoard[i][j] = 0;
 					}
 				}
@@ -196,21 +186,17 @@ function LifeBoard(size_x, size_y) {
 		sy = y*10;
 
 		if (LifeBoard.board[x][y] == 1) {
-			//console.log("Toggling cell to dead at " + x + ", " + y);
 			LifeBoard.board[x][y] = 0;
 			context.fillStyle = "#0F17FA";
 			context.fillRect(sx, sy, 10, 10);			
 		} else {
-			//console.log("Toggling cell to alive at " + x + ", " + y);
 			LifeBoard.board[x][y] = 1;
 			context.fillStyle = "#ffffff";
 			context.fillRect(sx, sy, 10, 10);
 		}
 	}
 
-	// Initialize the Game of Life board.
 	this.initializeBoard(size_x, size_y);
-
 }
 
 
